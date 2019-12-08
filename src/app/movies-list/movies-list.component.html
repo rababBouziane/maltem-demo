@@ -1,0 +1,45 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Movies List</h2>
+  </div>
+  <nav class="navbar">
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter">
+  </nav>
+
+  <div class="panel-body">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th (click)="sort('title')">Title <i class="fa fa-fw fa-sort"></i>
+          <span class="glyphicon sort-icon" *ngIf="key =='title'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th (click)="sort('director')"> Director <i class="fa fa-fw fa-sort"></i>
+          <span class="glyphicon sort-icon" *ngIf="key =='director'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th (click)="sort('releaseDate')"> Release date <i class="fa fa-fw fa-sort"></i>
+          <span class="glyphicon sort-icon" *ngIf="key =='releaseDate'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+
+        </th>
+        <th (click)="sort('type')"> Type <i class="fa fa-fw fa-sort"></i>
+          <span class="glyphicon sort-icon" *ngIf="key =='type'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let movie of movies | async| orderBy: key : reverse | filter:filter; let i = index">
+        <td>{{i}}</td>
+        <td>{{movie.title}}</td>
+        <td>{{movie.director}}</td>
+        <td>{{movie.releaseDate}}</td>
+        <td>{{movie.type}}</td>
+        <td><button (click)="deleteMovie(movie.title)" class="btn btn-danger">Delete</button>
+          <button (click)="updateMovie(movie.title)" class="btn btn-info" style="margin-left: 10px">Update</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
